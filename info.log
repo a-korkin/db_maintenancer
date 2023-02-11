@@ -1,0 +1,29 @@
+[00:00:00.117] (7fb563779dc0) INFO   SELECT ('"' || s.table_schema …; rows affected: 2, rows returned: 2, elapsed: 2.705ms
+
+SELECT
+  (
+    '"' || s.table_schema || '"."' || s.table_name || '"'
+  )
+FROM
+  information_schema.tables AS s
+WHERE
+  s.table_schema NOT IN ('information_schema', 'pg_catalog', 'sys')
+  AND s.table_type = 'BASE TABLE'
+ORDER BY
+  s.table_schema,
+  s.table_name;
+
+[00:00:00.260] (7fb563779dc0) INFO   VACUUM ANALYZE "public"."address";; rows affected: 0, rows returned: 0, elapsed: 32.567ms
+[00:00:00.264] (7fb563779dc0) INFO   VACUUM ANALYZE "public"."person";; rows affected: 0, rows returned: 0, elapsed: 3.198ms
+[00:00:00.271] (7fb563779dc0) INFO   SELECT '"' || schemaname …; rows affected: 3, rows returned: 3, elapsed: 3.645ms
+
+SELECT
+  '"' || schemaname || '."' || indexname || '"'
+FROM
+  pg_indexes
+WHERE
+  schemaname NOT IN ('information_schema', 'pg_catalog', 'sys')
+
+[00:00:00.272] (7fb563779dc0) INFO   REINDEX INDEX "public."person_pkey"; rows affected: 0, rows returned: 0, elapsed: 339.978µs
+[00:00:00.272] (7fb563779dc0) INFO   REINDEX INDEX "public."address_pkey"; rows affected: 0, rows returned: 0, elapsed: 327.495µs
+[00:00:00.273] (7fb563779dc0) INFO   REINDEX INDEX "public."idx_person_address"; rows affected: 0, rows returned: 0, elapsed: 314.079µs

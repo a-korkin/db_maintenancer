@@ -1,9 +1,12 @@
 use config::{Config, File, FileFormat};
 use serde::{Deserialize, Serialize};
 use sqlx::{postgres::PgPoolOptions, PgPool};
+use log::{info, error, LevelFilter};
 
 #[tokio::main]
 async fn main() {
+    let _ = simple_logging::log_to_file("info.log", LevelFilter::Info);
+
     let builder = Config::builder()
         .add_source(File::new("config.yml", FileFormat::Yaml))
         .build()
@@ -53,11 +56,12 @@ async fn get_tables(pool: &PgPool) -> Result<Vec<Table>, sqlx::Error> {
 
 async fn vacuum_tables(pool: &PgPool, tables: &Vec<Table>) -> Result<(), sqlx::Error> {
     for table in tables {
-        println!("VACUUM table {}", table.0);
+        // info!("VACUUM table {}", table.0);
 
         let _ = sqlx::query(&format!("VACUUM ANALYZE {};", table.0))
             .execute(pool)
-            .await;
+            .await
+            .map_err(|e| error!("{e}"));
     }
 
     Ok(())
@@ -76,7 +80,7 @@ async fn get_indexes(pool: &PgPool) -> Result<Vec<Index>, sqlx::Error> {
 
 async fn reindex_indexes(pool: &PgPool, indexes: &Vec<Index>) -> Result<(), sqlx::Error> {
     for idx in indexes {
-        println!("REINDEX INDEX {}", idx.0);
+        // println!("REINDEX INDEX {}", idx.0);
 
         let _ = sqlx::query(&format!("REINDEX INDEX {}", idx.0))
             .execute(pool)

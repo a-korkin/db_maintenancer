@@ -1,1 +1,6 @@
 database: postgres://postgres:password@localhost:5432/test
+excluded_schemas: [
+  "information_schema",
+  "sys",
+  "pg_catalog"
+]

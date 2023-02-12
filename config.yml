@@ -4,3 +4,4 @@ excluded_schemas: [
   "sys",
   "pg_catalog"
 ]
+log_dir: /home/ss/projects/db_maintenancer/logs

@@ -13,4 +13,5 @@ simple-logging = "2.0.2"
 sqlx = { version = "0.6.2", features = ["runtime-tokio-rustls", "postgres", "uuid"] }
 tokio = { version = "1.25.0", features = ["full"] }
 tracing = "0.1.37"
+tracing-appender = "0.2.2"
 tracing-subscriber = { version = "0.3.16", features = ["fmt", "time"] }

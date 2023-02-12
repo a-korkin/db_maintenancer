@@ -3,7 +3,7 @@ mod db;
 
 use configuration::get_config;
 use db::{vacuum_tables, reindex_indexes, refresh_matviews};
-use sqlx::{postgres::PgPoolOptions};
+use sqlx::postgres::PgPoolOptions;
 use tracing_subscriber;
 
 #[tokio::main]

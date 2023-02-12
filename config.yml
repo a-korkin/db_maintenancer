@@ -1,7 +1,10 @@
 database: postgres://postgres:password@localhost:5432/test
-excluded_schemas: [
+excluded_schema_list: [
   "information_schema",
   "sys",
   "pg_catalog"
 ]
 log_dir: /home/ss/projects/db_maintenancer/logs
+vacuum: false
+reindex: true
+refresh_matviews: false
